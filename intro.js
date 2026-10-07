@@ -55,21 +55,20 @@
     if (innerWidth < 700) lignes.forEach(l => l.style.fontSize = parseFloat(l.style.fontSize) * .86 + 'px');
     if (innerWidth >= 700) { const m = Math.min(...lignes.map(l => parseFloat(l.style.fontSize))); const k = Math.min(1, (innerHeight * .46) / (m * 1.9)); lignes.forEach(l => l.style.fontSize = parseFloat(l.style.fontSize) * k + 'px'); }
   };
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(ajuste); addEventListener('resize', ajuste); ajuste();
+  // no question: it starts at once, silent (a browser only lets sound start from a tap: the Sound button does it)
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { ajuste(); choisir(false); });
+  addEventListener('resize', ajuste); ajuste();
 
   // first the question: sound on or not (the tap is also what lets the browser play sound); the title card starts after the answer
   let started = false;
-  const q = el.querySelector('#introQ');
   const choisir = (oui) => {
     if (started) return; started = true;
     mode = oui ? 1 : 0;
     vs.forEach(v => { v.muted = !oui; v.volume = 1; });
     son.classList.toggle('actif', oui); son.querySelector('.mono').textContent = NOMS[mode];
     if (oui) { bed.currentTime = 0; bed.volume = .16; bed.play().catch(() => {}); }
-    q.classList.add('part'); setTimeout(() => q.remove(), 800);
-    demarre(); el.classList.add('in');
+        demarre(); el.classList.add('in');
   };
-  q.querySelectorAll('[data-son]').forEach(b => b.addEventListener('click', () => choisir(b.dataset.son === '1')));
 
   // leaving = the strip->list passage idiom: the picture closes into its foot line (still showing until nearly shut),
   // the name sinks away, the site opens behind with its own entrance (strip fades up, title rises, window opens)
@@ -104,7 +103,7 @@
   el.querySelector('#introEntrer').addEventListener('click', enter);
   addEventListener('keydown', e => {
     if (el.hidden) return;
-    if (!started) { if (e.key === 'Enter' || e.key === 'y' || e.key === 'Y') { e.preventDefault(); choisir(true); } else if (e.key === 'n' || e.key === 'N') choisir(false); return; }
+    if (!started) return;
     if (e.key === 'Enter') { e.preventDefault(); enter(); }
   });
   let y0 = null;
