@@ -1,17 +1,26 @@
 // Intro: his name huge over silent extracts of his work. Sound = a heavy riser (WebAudio, only after a tap). Enter by button, swipe up or scroll.
 (() => {
   const el = document.getElementById('intro'); if (!el) return;
-  const CLIPS = ['copie-de-kcorp-jersey-worlds-2025', 'samyang-habanero-lime', 'copie-de-redbull-helydia-annonce-1', 'ds4-reveal', 'dcmj-x-lena-situation', 'showreel-2024', 'copie-de-poppie-short-film'];
+  const DIR = innerWidth < 700 ? 'intro/s/' : 'intro/'; // phones decode 720p, wide screens 1080p
+  const BASE = ['copie-de-kcorp-jersey-worlds-2025', 'samyang-habanero-lime', 'copie-de-redbull-helydia-annonce-1', 'ds4-reveal', 'dcmj-x-lena-situation', 'showreel-2024', 'copie-de-poppie-short-film'];
+  // a different order every visit, and never two extracts of the same film back to back
+  const film = c => c.replace(/_[ab]$/, '');
+  const melange = (l) => {
+    const a = l.slice();
+    for (let i = a.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [a[i], a[k]] = [a[k], a[i]]; }
+    for (let i = 1; i < a.length; i++) if (film(a[i]) === film(a[i - 1])) { const k = a.findIndex((x, m) => m > i && film(x) !== film(a[i - 1]) && film(x) !== film(a[i + 1] || '')); if (k > 0) [a[i], a[k]] = [a[k], a[i]]; }
+    return a;
+  };
+  let CLIPS = melange(BASE);
+  fetch('intro/list.json').then(r => r.json()).then(l => { if (Array.isArray(l) && l.length > 7) { const dejaVus = CLIPS.slice(0, n); CLIPS = dejaVus.concat(melange(l.filter(c => !dejaVus.includes(c)))); } }).catch(() => {});
   // two stacked players: the next extract starts under the current one and they cross-fade, picture and sound together
   const v0 = el.querySelector('video'), v1 = v0.cloneNode(); v0.after(v1);
   const vs = [v0, v1]; let cur = 0, n = 0, passe = false, mode = 0;
   const XF = 320; // ms of overlap; each clip also carries a short fade in and out of its own sound
   vs.forEach(v => { v.muted = true; v.playsInline = true; v.style.opacity = 0; });
-  const lance = (i) => { const v = vs[i]; v.src = `intro/${CLIPS[n++ % CLIPS.length]}.mp4`; v.currentTime = 0; return v.play().catch(() => {}); };
+  const lance = (i) => { const v = vs[i]; v.src = `${DIR}${CLIPS[n++ % CLIPS.length]}.mp4`; v.currentTime = 0; return v.play().catch(() => {}); };
   // first clip, then every clip hands over XF ms before its end
-  lance(0).then(() => { vs[0].style.opacity = 1; });
-  const prochain = () => { const b = vs[1 - cur]; b.src = `intro/${CLIPS[n % CLIPS.length]}.mp4`; b.load(); };
-  prochain();
+  const prochain = () => { const b = vs[1 - cur]; b.src = `${DIR}${CLIPS[n % CLIPS.length]}.mp4`; b.load(); };
   setInterval(() => {
     const a = vs[cur]; if (!a.duration || document.hidden) return;
     if (a.duration - a.currentTime < XF / 1000 + .05 && !a.dataset.passe) {
@@ -20,9 +29,10 @@
       b.animate([{ opacity: 0 }, { opacity: 1 }], { duration: XF, fill: 'forwards', easing: 'ease-in-out' });
       a.animate([{ opacity: 1 }, { opacity: 0 }], { duration: XF, fill: 'forwards', easing: 'ease-in-out' });
       cur = 1 - cur; b.dataset.passe = '';
-      setTimeout(() => { a.pause(); a.dataset.passe = ''; const c = vs[1 - cur]; c.src = `intro/${CLIPS[n % CLIPS.length]}.mp4`; c.load(); }, XF + 80);
+      setTimeout(() => { a.pause(); a.dataset.passe = ''; const c = vs[1 - cur]; c.src = `${DIR}${CLIPS[n % CLIPS.length]}.mp4`; c.load(); }, XF + 80);
     }
   }, 60);
+  const demarre = () => { lance(0).then(() => { vs[0].style.opacity = 1; }); prochain(); };
   document.body.classList.add('intro-on');
 
   // the extracts keep their own sound, with the heavy low Dunkirk-style bed very faint underneath
@@ -45,15 +55,21 @@
     if (innerWidth < 700) lignes.forEach(l => l.style.fontSize = parseFloat(l.style.fontSize) * .86 + 'px');
     if (innerWidth >= 700) { const m = Math.min(...lignes.map(l => parseFloat(l.style.fontSize))); const k = Math.min(1, (innerHeight * .46) / (m * 1.9)); lignes.forEach(l => l.style.fontSize = parseFloat(l.style.fontSize) * k + 'px'); }
   };
-  // the NAME (not the name plus the role) sits on the centre of the screen: measure it, slide the group by the gap
-  const centre = () => {
-    const g = [el.querySelector('h1'), el.querySelector('.filet'), el.querySelector('.role')];
-    g.forEach(e => e.style.translate = '');
-    const h = g[0].getBoundingClientRect(), padB = parseFloat(lignes[1].style.fontSize) * .24;
-    const off = Math.round(innerHeight / 2 - (h.top + (h.bottom - padB * .55)) / 2);
-    g.forEach(e => e.style.translate = `0 ${off}px`);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(ajuste); addEventListener('resize', ajuste); ajuste();
+
+  // first the question: sound on or not (the tap is also what lets the browser play sound); the title card starts after the answer
+  let started = false;
+  const q = el.querySelector('#introQ');
+  const choisir = (oui) => {
+    if (started) return; started = true;
+    mode = oui ? 1 : 0;
+    vs.forEach(v => { v.muted = !oui; v.volume = 1; });
+    son.classList.toggle('actif', oui); son.querySelector('.mono').textContent = NOMS[mode];
+    if (oui) { bed.currentTime = 0; bed.volume = .16; bed.play().catch(() => {}); }
+    q.classList.add('part'); setTimeout(() => q.remove(), 800);
+    demarre(); el.classList.add('in');
   };
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { ajuste(); centre(); requestAnimationFrame(() => el.classList.add('in')); }); addEventListener('resize', () => { ajuste(); centre(); }); ajuste(); centre();
+  q.querySelectorAll('[data-son]').forEach(b => b.addEventListener('click', () => choisir(b.dataset.son === '1')));
 
   // leaving = the strip->list passage idiom: the picture closes into its foot line (still showing until nearly shut),
   // the name sinks away, the site opens behind with its own entrance (strip fades up, title rises, window opens)
@@ -83,10 +99,14 @@
     ['.axe', '#lu', '#regle', '.tete'].forEach(q => document.querySelectorAll(q).forEach(e => a(e, [{ opacity: 0 }, { opacity: 1 }], { duration: 420, delay: D - 520 })));
     a(titres, [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }], { duration: 620, delay: D - 700, easing: SORTIE });
     a(fen, [{ opacity: 1, transform: 'translateX(-50%) scaleY(0)' }, { opacity: 1, transform: 'translateX(-50%) scaleY(1)' }], { duration: 700, delay: D - 860, easing: SORTIE });
-    setTimeout(() => { el.hidden = true; vs.forEach(x => x.pause()); mine.forEach(x => x.cancel()); }, D + 100);
+    setTimeout(() => { el.hidden = true; vs.forEach(x => { x.pause(); x.removeAttribute('src'); x.load(); }); bed.pause(); mine.forEach(x => x.cancel()); }, D + 100);
   };
   el.querySelector('#introEntrer').addEventListener('click', enter);
-  addEventListener('keydown', e => { if (e.key === 'Enter' && !el.hidden) { e.preventDefault(); enter(); } });
+  addEventListener('keydown', e => {
+    if (el.hidden) return;
+    if (!started) { if (e.key === 'Enter' || e.key === 'y' || e.key === 'Y') { e.preventDefault(); choisir(true); } else if (e.key === 'n' || e.key === 'N') choisir(false); return; }
+    if (e.key === 'Enter') { e.preventDefault(); enter(); }
+  });
   let y0 = null;
   el.addEventListener('touchstart', e => { y0 = e.touches[0].clientY; }, { passive: true });
   el.addEventListener('touchmove', e => { if (y0 !== null && y0 - e.touches[0].clientY > 60) enter(); }, { passive: true });

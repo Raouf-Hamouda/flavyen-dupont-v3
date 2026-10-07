@@ -1449,6 +1449,8 @@
   document.addEventListener('visibilitychange', function () { if (document.hidden) vif.pause(); });
   let avant = 0;
   function image(ms) {
+    // while the intro covers the site nothing under it needs to move or decode
+    if (document.body.classList.contains('intro-on')) { if (!vif.paused) vif.pause(); requestAnimationFrame(image); return; }
     const brut = (ms - avant) / 1000, dt = clamp(brut, .001, .05);
     avant = ms;
     if (!leger && brut < .5) {
