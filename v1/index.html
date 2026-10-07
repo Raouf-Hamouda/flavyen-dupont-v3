@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flavyen Dupont · Creative Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;700;800&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=20261005g">
+</head>
+<body data-vue="bande">
+
+<header class="tete">
+  <a class="qui" id="accueil"><b>Flavyen Dupont</b><span>Creative Director</span><span class="salue">Bonjour · Hi · 안녕하세요</span></a>
+  <nav class="vues mono"><button data-vue="bande"><i class="pb"><b></b><b></b><b></b></i>Bande</button><button data-vue="liste"><i class="pl"><b></b><b></b><b></b></i>Liste</button></nav>
+  <div class="filtres"><sup id="compte"></sup><div id="cats"></div></div>
+  <nav class="menu">
+    <button class="btn" data-vue="bande"><span class="k"><b>작</b><b>품</b></span><span class="mono">Films</span></button>
+    <button class="btn" data-vue="apropos"><span class="k"><b>소</b><b>개</b></span><span class="mono">À propos</span></button>
+    <button class="btn" data-vue="contact"><span class="k"><b>연</b><b>락</b></span><span class="mono">Contact</span></button>
+  </nav>
+</header>
+<div class="heures mono" id="heures"></div>
+
+<div class="axe"></div>
+<section id="bande"><div id="piste"></div></section>
+<canvas id="regle"></canvas>
+<div id="lu">
+  <div class="mono"><span id="luNo"></span><span id="luTc"></span></div>
+  <div class="mono" id="luMeta"></div>
+</div>
+
+<section id="liste"></section>
+<div id="flottant"><img alt=""></div>
+
+<div id="titres"><div id="rouleau"></div></div>
+
+<section id="apropos" class="page">
+  <div class="colonne">
+    <div class="logo-fd" data-logo></div>
+    <p class="chapeau">I’m Flavyen Dupont, a Director &amp; Art Director, but also Motion Designer, Editor and Producer. I have worked in digital, cinema and television.</p>
+    <div class="listes">
+      <dl><dt class="mono">Rôles</dt><dd>Director</dd><dd>Art Director</dd><dd>Motion Designer</dd><dd>Editor</dd><dd>Producer</dd></dl>
+      <dl><dt class="mono">Avec</dt><dd>Google</dd><dd>YouTube</dd><dd>Coway</dd><dd>Hyundai</dd><dd>Samyang</dd><dd>DCMJ</dd><dd>Mentorshow</dd><dd>Deezer</dd></dl>
+    </div>
+    <p class="geste mono" id="geste"></p>
+  </div>
+  <div class="grand"><div class="tl"><span class="g">About</span><span class="salut"><span class="tour" id="tour"><i>Bonjour.</i><i>Hi.</i><i class="ko">안녕하세요.</i><i>Buongiorno.</i><i>Bonjour.</i></span></span></div></div>
+</section>
+<div id="trainee"></div>
+
+<section id="contact" class="page">
+  <div class="colonne">
+    <div class="logo-fd" data-logo></div>
+    <p class="chapeau">Always looking for new challenges. If you like the work, write to me and let’s have a coffee.</p>
+    <div class="adresses">
+      <a class="lien" id="courriel" data-copie="flavyen.dupont@hotmail.com"><span class="mono">Email</span><span class="v">flavyen.dupont@hotmail.com</span><span class="mono f">Copier</span></a>
+      <a class="lien" href="https://www.instagram.com/flavyen_d/" target="_blank" rel="noopener"><span class="mono">Instagram</span><span class="v">@flavyen_d</span><span class="mono f">↗</span></a>
+      <a class="lien" href="https://vimeo.com/user74346532" target="_blank" rel="noopener"><span class="mono">Vimeo</span><span class="v">user74346532</span><span class="mono f">↗</span></a>
+      <a class="lien" href="https://www.imdb.com/fr/name/nm17439350/" target="_blank" rel="noopener"><span class="mono">IMDb</span><span class="v">Flavyen Dupont</span><span class="mono f">↗</span></a>
+    </div>
+    <p class="geste mono" id="heures2"></p>
+  </div>
+  <div class="grand"><div class="tl"><span class="g">flavyen.dupont</span><span class="i">@hotmail.com</span></div></div>
+</section>
+
+<section id="film">
+  <div class="noir"></div>
+  <video id="fv" playsinline muted preload="auto"></video>
+  <img id="fa" alt="">
+  <div id="vimeo"></div>
+  <div id="voile"></div>
+  <div id="generique"><div class="roule" id="fiche"></div></div>
+  <div class="ui haut">
+    <button class="btn" id="retour"><span class="k"><b>닫</b><b>기</b></span><span class="mono">Fermer</span></button>
+    <div class="droite">
+      <button class="btn" id="qualite"><span class="k"><b>화</b><b>질</b></span><span class="mono" id="qualiteTxt">Auto</span></button>
+      <button class="btn" id="son"><span class="k"><b>소</b><b>리</b></span><span class="mono" id="sonTxt">Son coupé</span></button>
+      <button class="btn" id="info"><span class="k"><b>제</b><b>작</b><b>진</b></span><span class="mono">Crédits</span></button>
+    </div>
+  </div>
+  <div class="ui bas">
+    <div class="ligne"><span class="compteur" id="fNo"></span><span class="mono" id="fTc"></span></div>
+    <div class="tuiles">
+      <div class="rangee" id="tTitre"></div>
+      <div class="regleT mono" id="tRegle"></div>
+      <div class="rangee" id="tTemps"></div>
+    </div>
+    <div class="tcmd">
+      <button class="btn" id="prec"><span class="k"><b>이</b><b>전</b></span><span class="mono">Précédent</span></button>
+      <button class="btn" id="suiv"><span class="k"><b>다</b><b>음</b></span><span class="mono">Suivant</span></button>
+      <button class="btn" id="pause"><span class="k"><b>멈</b><b>춤</b></span><span class="mono" id="pauseTxt">Pause</span></button>
+    </div>
+  </div>
+</section>
+
+<div id="curseur"></div>
+
+<script src="https://player.vimeo.com/api/player.js" async></script>
+<script src="../donnees.js?v=20261005g" defer></script>
+<script src="../logo.js?v=20261005g" defer></script>
+<script src="app.js?v=20261005g" defer></script>
+</body>
+</html>

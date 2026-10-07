@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>flavyen dupont. · logo</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@800&family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nuit: #05070f;
+  --lettre: #d6dfec;
+  --carre: #8da6cb;
+  --gris: #6f7c90;
+  --trait: rgba(214, 223, 236, .16);
+  --sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --e: cubic-bezier(.2, .7, .2, 1);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+html,
+body {
+  min-height: 100%;
+  background: var(--nuit);
+  color: var(--lettre);
+  -webkit-font-smoothing: antialiased;
+}
+.mono {
+  font: 400 10px/1.3 var(--mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 24px;
+}
+.scene {
+  min-height: 44vh;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 20px;
+}
+
+/* the word, in the first typeface, unchanged. Only the f and the l are redrawn, as one shape. */
+.logo {
+  display: inline-flex;
+  align-items: baseline;
+  font: 800 var(--t, clamp(40px, 10.4vw, 168px)) / 1 var(--sans);
+  letter-spacing: -.062em;
+  white-space: nowrap;
+  position: relative;
+  --prenom: #8da6cb;
+  --nom: #d6dfec;
+  --pointc: var(--nom);
+  color: var(--nom);
+}
+.logo .w1,
+.logo .fl {
+  color: var(--prenom);
+}
+/* on white, as on the site: the family name stays black */
+.clair .logo {
+  --prenom: #8fa3c2;
+  --nom: #0c0c0c;
+}
+.logo .c {
+  display: inline-block;
+  overflow: hidden;
+  padding: .06em .04em .26em;
+  margin: -.06em -.04em -.26em;
+}
+.logo .ligne {
+  display: flex;
+  align-items: baseline;
+}
+.logo .esp {
+  width: .25em;
+  flex: none;
+}
+/* stacked: first name over family name */
+.logo.pile {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.logo.pile .ligne + .ligne {
+  margin-top: -.13em;
+}
+.logo .c span {
+  display: inline-block;
+}
+.logo .c.apres-e {
+  margin-left: -.012em;
+}
+.logo .fl {
+  display: inline-block;
+  overflow: hidden;
+  padding: .06em 0 0;
+  margin: -.06em 0 0;
+  flex: none;
+}
+.logo .fl svg {
+  display: block;
+  fill: currentColor;
+  overflow: visible;
+}
+.logo .pt {
+  width: .19em;
+  height: .19em;
+  margin-left: .13em;
+  background: var(--pointc);
+  box-shadow: 0 0 .22em rgba(141, 166, 203, .3);
+  flex: none;
+}
+.joue .logo .c span,
+.joue .logo .fl svg {
+  transform: translateY(125%);
+  animation: monte .85s var(--e) forwards;
+  animation-delay: calc(var(--n, 0) * 45ms);
+}
+.joue .logo .pt {
+  opacity: 0;
+  animation: tombe .7s cubic-bezier(.3, 1.6, .5, 1) .8s forwards, souffle 3.6s ease-in-out 1.6s infinite;
+}
+@keyframes monte {
+  to {
+    transform: none;
+  }
+}
+@keyframes tombe {
+  from {
+    opacity: 1;
+    transform: translateY(-1.5em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* the frame: it lands as a square, then opens to the width of a cinema screen (2.39 to 1) */
+body[data-point="cadre"] .logo .pt {
+  width: .454em;
+}
+body[data-point="cadre"] .joue .logo .pt {
+  animation: tombe .7s cubic-bezier(.3, 1.6, .5, 1) .8s forwards, ouvre .75s cubic-bezier(.6, 0, .2, 1) 1.55s both, souffle 3.6s ease-in-out 2.5s infinite;
+}
+@keyframes ouvre {
+  from {
+    width: .19em;
+  }
+  to {
+    width: .454em;
+  }
+}
+/* the clap: a director's clapperboard, reduced to a block and its striped arm.
+   It drops in with the arm open, claps shut once, then rests slightly open. */
+body[data-point="clap"] .logo .pt {
+  position: relative;
+  width: .27em;
+  height: .17em;
+}
+body[data-point="clap"] .logo .pt::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + .022em);
+  width: 100%;
+  height: .058em;
+  background: repeating-linear-gradient(115deg, var(--pointc) 0 .045em, transparent .045em .08em);
+  transform-origin: left bottom;
+  transform: rotate(-13deg);
+}
+body[data-point="clap"] .joue .logo .pt::before {
+  animation: clap .9s cubic-bezier(.5, 0, .2, 1) 1.5s both;
+}
+@keyframes clap {
+  0% {
+    transform: rotate(-30deg);
+  }
+  30%,
+  48% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-13deg);
+  }
+}
+/* the perforation: one sprocket hole of a strip of film */
+body[data-point="perfo"] .logo .pt {
+  width: .268em;
+  border-radius: .05em;
+}
+/* the viewfinder: four corner marks and a centre point, as in a camera's frame guide */
+body[data-point="viseur"] .logo .pt {
+  width: .27em;
+  height: .27em;
+  box-shadow: none;
+  --b: .034em;
+  --l: 36%;
+  background:
+    linear-gradient(var(--pointc), var(--pointc)) left top / var(--l) var(--b) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) left top / var(--b) var(--l) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) right top / var(--l) var(--b) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) right top / var(--b) var(--l) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) left bottom / var(--l) var(--b) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) left bottom / var(--b) var(--l) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) right bottom / var(--l) var(--b) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) right bottom / var(--b) var(--l) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) center / .056em .056em no-repeat;
+}
+body[data-point="viseur"] .joue .logo .pt {
+  animation: tombe .7s cubic-bezier(.3, 1.6, .5, 1) .8s forwards;
+}
+
+@keyframes souffle {
+  50% {
+    box-shadow: 0 0 .5em rgba(141, 166, 203, .6);
+  }
+}
+
+.choix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 26px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--trait);
+}
+.choix b {
+  font-weight: 500;
+  color: var(--lettre);
+}
+.choix button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--gris);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  padding: 0 0 3px;
+  cursor: pointer;
+}
+.choix button.actif {
+  color: var(--lettre);
+  border-bottom-color: var(--carre);
+}
+
+/* Korean reference 1: the red tile of manuscript paper, resting on the u of dupont */
+.logo .tuile {
+  position: absolute;
+  width: .64em;
+  height: .64em;
+  border: max(1px, .011em) solid #d6301d;
+  pointer-events: none;
+  display: none;
+}
+body[data-coree="tuile"] .logo .tuile,
+body[data-coree="deux"] .logo .tuile {
+  display: block;
+}
+.joue .logo .tuile {
+  opacity: 0;
+  animation: pose .5s cubic-bezier(.3, 0, .2, 1) 1.15s forwards;
+}
+@keyframes pose {
+  from {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Korean reference 2: his name in Hangul, small, under the logo */
+.logo .hangul {
+  position: absolute;
+  left: .03em;
+  top: calc(100% + .2em);
+  font: 500 .105em/1 "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  letter-spacing: .42em;
+  color: var(--prenom);
+  white-space: nowrap;
+  display: none;
+}
+body[data-coree="hangul"] .logo .hangul,
+body[data-coree="deux"] .logo .hangul {
+  display: block;
+}
+.favicon .hangul,
+.favicon .tuile {
+  display: none !important;
+}
+.joue .logo .hangul {
+  opacity: 0;
+  animation: vient .9s var(--e) 1.3s forwards;
+}
+@keyframes vient {
+  to {
+    opacity: 1;
+  }
+}
+.scene.clair {
+  background: #fff;
+}
+.clair .logo .pt {
+  box-shadow: none;
+}
+
+/* ---- more signs for the full stop, Korean ones */
+/* a trigram, as in the corners of the Korean flag: three bars, the middle one broken */
+body[data-point="trigramme"] .logo .pt {
+  width: .27em;
+  height: .2em;
+  box-shadow: none;
+  background:
+    linear-gradient(var(--pointc), var(--pointc)) left top / 100% .048em no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) left center / 43% .048em no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) right center / 43% .048em no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) left bottom / 100% .048em no-repeat;
+}
+/* a seal: a solid square signed with his two Korean initials */
+body[data-point="sceau"] .logo .pt {
+  width: .3em;
+  height: .3em;
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+}
+body[data-point="sceau"] .logo .pt::before {
+  content: "ㅍㄷ";
+  font: 700 .115em/1 "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  letter-spacing: .02em;
+  color: #fff;
+}
+.logo:not(.x) .pt::before {
+  -webkit-font-smoothing: antialiased;
+}
+/* a window: the paper lattice of a Korean door, which is also a film frame */
+body[data-point="fenetre"] .logo .pt {
+  width: .25em;
+  height: .25em;
+  box-shadow: none;
+  --b: .03em;
+  background:
+    linear-gradient(var(--pointc), var(--pointc)) center / var(--b) 100% no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) center / 100% var(--b) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) left / var(--b) 100% no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) right / var(--b) 100% no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) top / 100% var(--b) no-repeat,
+    linear-gradient(var(--pointc), var(--pointc)) bottom / 100% var(--b) no-repeat;
+}
+body[data-point="trigramme"] .joue .logo .pt,
+body[data-point="sceau"] .joue .logo .pt,
+body[data-point="fenetre"] .joue .logo .pt {
+  animation: tombe .7s cubic-bezier(.3, 1.6, .5, 1) .8s forwards;
+}
+
+/* ---- Korean letters inside the name itself */
+/* the o of dupont becomes ㅇ: the same ring, with the small stem the Korean letter carries on top */
+.logo .tick {
+  position: absolute;
+  background: var(--nom);
+  display: none;
+}
+body[data-coree="ieung"] .logo .tick {
+  display: block;
+}
+/* the p of dupont becomes ㅍ, the Korean letter for the same sound */
+.logo .kp {
+  position: absolute;
+  left: 0;
+  fill: var(--nom);
+  overflow: visible;
+  display: none;
+}
+body[data-coree="pieup"] .logo .kp {
+  display: block;
+}
+body[data-coree="pieup"] .logo .c.lp > span {
+  color: transparent;
+}
+/* his name in Hangul, written downward at the end of the logo, the old way */
+.logo .hangulv {
+  position: absolute;
+  left: calc(100% + .22em);
+  top: .1em;
+  writing-mode: vertical-rl;
+  font: 500 .088em/1 "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  letter-spacing: .34em;
+  color: var(--prenom);
+  white-space: nowrap;
+  display: none;
+}
+body[data-coree="vertical"] .logo .hangulv {
+  display: block;
+}
+.favicon .hangulv {
+  display: none !important;
+}
+
+/* the three settings of the f */
+.reglages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--trait);
+}
+.reglage {
+  padding: 18px 24px 22px;
+}
+.reglage + .reglage {
+  border-left: 1px solid var(--trait);
+}
+.reglage label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.reglage label b {
+  font-weight: 500;
+  color: var(--lettre);
+}
+.reglage input {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 1px;
+  background: var(--gris);
+  outline: none;
+}
+.reglage input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--carre);
+  cursor: pointer;
+}
+.reglage input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 0;
+  background: var(--carre);
+  cursor: pointer;
+}
+
+.rangee {
+  display: grid;
+  grid-template-columns: 1.15fr 1.15fr 1fr .7fr;
+  border-top: 1px solid var(--trait);
+}
+.cas {
+  padding: 20px 24px 28px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+}
+.cas + .cas {
+  border-left: 1px solid var(--trait);
+}
+.cas.clair {
+  background: #eef2f7;
+}
+
+.cas.clair .mono {
+  color: #7b8798;
+}
+.cas.clair .pt,
+.favicon .pt {
+  box-shadow: none;
+}
+.favicon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: #0b0f1a;
+  display: grid;
+  place-items: center;
+  --t: 44px;
+}
+.favicon .logo .pt {
+  margin-left: .1em;
+}
+@media (max-width: 760px) {
+  .reglages,
+  .rangee {
+    grid-template-columns: 1fr;
+  }
+  .reglage + .reglage,
+  .cas + .cas {
+    border-left: 0;
+    border-top: 1px solid var(--trait);
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="mono"><span>flavyen dupont. · même police, seul le f est redessiné pour rejoindre le l</span><span>Cliquer sur le logo pour le rejouer</span></header>
+
+<div class="scene clair" id="scene"><div class="logo" data-mot="flavyen dupont"></div></div>
+
+<div class="choix mono" id="choix"><b>Le point</b>
+  <button data-point="clap">Clap du réalisateur</button>
+  <button data-point="trigramme">Trigramme ☲</button>
+  <button data-point="sceau">Sceau ㅍㄷ</button>
+  <button data-point="fenetre">Fenêtre coréenne</button>
+  <button data-point="cadre">Cadre · il s’ouvre en écran large</button>
+  <button data-point="perfo">Perforation de pellicule</button>
+  <button data-point="viseur">Viseur</button>
+  <button data-point="carre">Carré</button>
+</div>
+
+<div class="choix mono" id="coree"><b>Référence coréenne</b>
+  <button data-coree="ieung">Le o devient ㅇ</button>
+  <button data-coree="pieup">Le p devient ㅍ</button>
+  <button data-coree="hangul">Nom en hangul dessous</button>
+  <button data-coree="vertical">Nom en hangul vertical</button>
+  <button data-coree="rien">Aucune (le point seul)</button>
+</div>
+
+<div class="reglages">
+  <div class="reglage"><label class="mono"><b>Courbe du f</b><span id="vCourbe"></span></label><input type="range" id="courbe" min="0" max="100" step="1"></div>
+  <div class="reglage"><label class="mono"><b>Épaisseur du crochet</b><span id="vEpais"></span></label><input type="range" id="epais" min="0" max="100" step="1"></div>
+  <div class="reglage"><label class="mono"><b>Barre du f vers le l</b><span id="vBarre"></span></label><input type="range" id="barre" min="0" max="100" step="1"></div>
+</div>
+
+<div class="rangee">
+  <div class="cas"><span class="mono">Petit, sur fond nuit</span><div class="logo" data-mot="flavyen dupont" style="--t:30px"></div></div>
+  <div class="cas clair"><span class="mono">Sur fond clair</span><div class="logo" data-mot="flavyen dupont" style="--t:30px"></div></div>
+  <div class="cas"><span class="mono">Empilé : prénom sur nom</span><div class="logo" data-mot="flavyen|dupont" style="--t:46px"></div></div>
+  <div class="cas"><span class="mono">Icône</span><div class="favicon"><div class="logo" data-mot="fl"></div></div></div>
+</div>
+
+<script>
+(function () {
+  const T = 1000, LS = -.062, NS = 'http://www.w3.org/2000/svg';
+  let M = null;   // what the typeface says about its own f and l
+
+  // Read the real f and l of the typeface: where the stem of the f is, where its crossbar sits and how thick it is,
+  // where the l stands at normal spacing and how tall it is. The redrawn f uses exactly these, so it matches the rest.
+  function mesurer() {
+    const OX = 300, OY = 1150, cv = document.createElement('canvas');
+    cv.width = 1500; cv.height = 1500;
+    const g = cv.getContext('2d', { willReadFrequently: true });
+    g.font = `800 ${T}px "Inter Tight"`;
+    g.textBaseline = 'alphabetic';
+    const mf = g.measureText('f'), ml = g.measureText('l'), ma = g.measureText('a');
+    g.fillText('f', OX, OY);
+    const px = g.getImageData(0, 0, cv.width, cv.height).data;
+    const plein = (x, y) => px[(y * cv.width + x) * 4 + 3] > 128;
+    const gauche = y => { let x = OX - 200; while (x < OX + 900 && !plein(x, y)) x++; return x; };
+    const droite = y => { let x = OX + 900; while (x > OX - 200 && !plein(x, y)) x--; return x + 1; };
+    // near the foot there is only the stem
+    const fs0 = gauche(OY - 60) - OX, fs1 = droite(OY - 60) - OX;
+    // the crossbar is where the f sticks out to the left of its stem
+    const haut = Math.round(OY - mf.actualBoundingBoxAscent);
+    let y0 = -1, y1 = -1, cbL = fs0, cbR = fs1;
+    for (let y = haut; y < OY; y++) {
+      if (gauche(y) - OX < fs0 - 4) {
+        if (y0 < 0) y0 = y;
+        y1 = y;
+        cbL = Math.min(cbL, gauche(y) - OX);
+        cbR = Math.max(cbR, droite(y) - OX);
+      }
+    }
+    const lO = mf.width + LS * T;
+    return {
+      fs0, fs1, cbL, cbR, cb1: OY - y0, cb0: OY - y1 - 1,
+      ls0: lO - ml.actualBoundingBoxLeft, ls1: lO + ml.actualBoundingBoxRight,
+      A: ml.actualBoundingBoxAscent,
+      avance: mf.width + ml.width + 2 * LS * T,
+    };
+  }
+
+  // The f and the l as one drawing. R is the size of the curve at the top of the f, t the thickness of the hook,
+  // k how far the crossbar reaches toward the l (0: as in the typeface, 1: it touches the l).
+  function tracer(R, t, k) {
+    const m = M;
+    const cbR = m.cbR + (m.ls0 + 2 - m.cbR) * k;
+    // outside: the stem goes up, turns a rounded corner, then runs flat to the far edge of the l
+    const dehors = R > .5 ? `V${-(m.A - R)}A${R} ${R} 0 0 1 ${m.fs0 + R} ${-m.A}` : `V${-m.A}`;
+    // inside: the opening above the crossbar has its own small rounded corner, never bigger than the opening
+    const ri = Math.max(0, Math.min(R * .7, (m.ls0 - m.fs1) * .9, (m.A - t - m.cb1) * .9));
+    const dedans = ri > .5 ? `H${m.fs1 + ri}A${ri} ${ri} 0 0 0 ${m.fs1} ${-(m.A - t - ri)}` : `H${m.fs1}`;
+    return [
+      `M${m.fs0} 0${dehors}H${m.ls1}V0H${m.ls0}V${-(m.A - t)}${dedans}V0Z`,
+      `M${m.cbL} ${-m.cb1}H${cbR}V${-m.cb0}H${m.cbL}Z`,
+    ].join('');
+  }
+
+  // The logo is the full name. "|" in data-mot starts a second line (the stacked version).
+  const logos = [...document.querySelectorAll('.logo')].map(function (logo) {
+    const lignes = logo.dataset.mot.split('|');
+    if (lignes.length > 1) logo.classList.add('pile');
+    const svg = document.createElementNS(NS, 'svg'), path = document.createElementNS(NS, 'path');
+    let n = 2, derniere = logo, mot_no = 1, cible = null, lo = null, lp = null;
+    lignes.forEach(function (mot, k) {
+      const ligne = document.createElement('span');
+      ligne.className = 'ligne';
+      let avant = '';
+      if (k === 0) {
+        // the name opens with the redrawn f and l
+        const fl = document.createElement('span');
+        fl.className = 'fl';
+        svg.appendChild(path);
+        fl.appendChild(svg);
+        ligne.appendChild(fl);
+        mot = mot.slice(2);
+        avant = 'l';
+      }
+      for (const ch of mot) {
+        if (ch === ' ') {
+          ligne.appendChild(document.createElement('span')).className = 'esp';
+          mot_no++;
+        } else {
+          const c = document.createElement('span'), s2 = document.createElement('span');
+          c.className = 'c w' + mot_no + (ch === 'n' && avant === 'e' ? ' apres-e' : '');
+          if (mot_no === 2 && ch === 'u' && !cible) cible = c;
+          if (mot_no === 2 && ch === 'o' && !lo) lo = s2;
+          if (mot_no === 2 && ch === 'p' && !lp) { lp = s2; c.classList.add('lp'); }
+          s2.textContent = ch;
+          s2.style.setProperty('--n', n++);
+          c.appendChild(s2);
+          ligne.appendChild(c);
+        }
+        avant = ch;
+      }
+      logo.appendChild(ligne);
+      derniere = ligne;
+      mot_no++;
+    });
+    const tuile = document.createElement('i'), hangul = document.createElement('span');
+    tuile.className = 'tuile';
+    hangul.className = 'hangul';
+    hangul.textContent = '플라비앙 뒤퐁';
+    const hangulv = document.createElement('span');
+    hangulv.className = 'hangulv';
+    hangulv.textContent = '플라비앙 뒤퐁';
+    logo.append(tuile, hangul, hangulv);
+    const pt = document.createElement('span');
+    pt.className = 'pt';
+    derniere.appendChild(pt);
+    return { svg, path, logo, tuile, cible, lo, lp };
+  });
+
+  const courbe = document.getElementById('courbe'), epais = document.getElementById('epais'), barre = document.getElementById('barre');
+  function dessiner() {
+    const m = M;
+    // the corner goes from square (0) to a full arc that lands exactly on the l (100)
+    const R = (m.ls0 + 2 - m.fs0) * courbe.value / 100;
+    const tmin = (m.cb1 - m.cb0) * .8, tmax = (m.cb1 - m.cb0) * 2.2;
+    const t = tmin + (tmax - tmin) * epais.value / 100;
+    const d = tracer(R, t, barre.value / 100);
+    const x0 = Math.min(0, m.cbL), h = m.A + 2;
+    for (const l of logos) {
+      l.path.setAttribute('d', d);
+      l.svg.setAttribute('viewBox', `${x0} ${-h} ${m.avance - x0} ${h}`);
+      l.svg.style.width = (m.avance - x0) / T + 'em';
+      l.svg.style.height = h / T + 'em';
+      l.svg.style.marginLeft = x0 / T + 'em';
+    }
+    document.getElementById('vCourbe').textContent = courbe.value;
+    document.getElementById('vEpais').textContent = epais.value;
+    document.getElementById('vBarre').textContent = barre.value;
+  }
+  for (const r of [courbe, epais, barre]) r.addEventListener('input', dessiner);
+
+  // Korean letters drawn into the Latin ones, measured from the typeface so they have the same weight
+  function lettresCoreennes() {
+    const cv = document.createElement('canvas').getContext('2d');
+    cv.font = `800 ${T}px "Inter Tight"`;
+    const mo = cv.measureText('o'), mx = cv.measureText('x'), mp = cv.measureText('p');
+    const base = (T - (mo.fontBoundingBoxAscent + mo.fontBoundingBoxDescent)) / 2 + mo.fontBoundingBoxAscent;
+    const em = v => v / T + 'em';
+    const fut = M.fs1 - M.fs0, trait = M.cb1 - M.cb0, xh = mx.actualBoundingBoxAscent;
+    for (const l of logos) {
+      if (l.lo) {
+        // the small stem on top of ㅇ, centred on the o
+        const i = document.createElement('i');
+        i.className = 'tick';
+        const large = fut * .62, haut = T * .105;
+        i.style.left = em(mo.width / 2 - large / 2);
+        i.style.width = em(large);
+        i.style.top = em(base - mo.actualBoundingBoxAscent - haut + 14);
+        i.style.height = em(haut);
+        l.lo.appendChild(i);
+      }
+      if (l.lp) {
+        // ㅍ: a bar on top, a bar at the foot, two stems between, in the width of the p and the height of the small letters
+        const x0 = -mp.actualBoundingBoxLeft, x1 = mp.actualBoundingBoxRight, w = x1 - x0, st = fut * .82;
+        const a = x0 + w * .17, b = x1 - w * .17 - st;
+        const svg = document.createElementNS(NS, 'svg'), path = document.createElementNS(NS, 'path');
+        svg.setAttribute('class', 'kp');
+        svg.setAttribute('viewBox', `0 ${-xh} ${mp.width} ${xh}`);
+        svg.style.width = em(mp.width);
+        svg.style.height = em(xh);
+        svg.style.top = em(base - xh);
+        path.setAttribute('d', `M${x0} ${-xh}H${x1}V${-(xh - trait)}H${x0}ZM${x0} ${-trait}H${x1}V0H${x0}ZM${a} ${-(xh - trait)}H${a + st}V${-trait}H${a}ZM${b} ${-(xh - trait)}H${b + st}V${-trait}H${b}Z`);
+        svg.appendChild(path);
+        l.lp.appendChild(svg);
+      }
+    }
+  }
+
+  // the tile is a square centred on the u of the family name
+  function poserTuiles() {
+    for (const l of logos) {
+      if (!l.cible) continue;
+      const cote = l.tuile.offsetWidth || parseFloat(getComputedStyle(l.logo).fontSize) * .64;
+      const a = l.logo.getBoundingClientRect(), u = l.cible.querySelector('span').getBoundingClientRect();
+      l.tuile.style.left = (u.left - a.left + u.width / 2 - cote / 2) + 'px';
+      l.tuile.style.top = (u.top - a.top + u.height * .615 - cote / 2) + 'px';
+    }
+  }
+  function coree(nom) {
+    document.body.dataset.coree = nom;
+    document.querySelectorAll('#coree button').forEach(b => b.classList.toggle('actif', b.dataset.coree === nom));
+    poserTuiles();
+  }
+  document.querySelectorAll('#coree button').forEach(function (b) {
+    b.addEventListener('click', function () { coree(b.dataset.coree); jouer(); });
+  });
+  addEventListener('resize', poserTuiles);
+
+  // which cinema sign closes the name
+  function point(nom) {
+    document.body.dataset.point = nom;
+    document.querySelectorAll('#choix button').forEach(b => b.classList.toggle('actif', b.dataset.point === nom));
+  }
+  document.querySelectorAll('#choix button').forEach(function (b) {
+    b.addEventListener('click', function () { point(b.dataset.point); jouer(); });
+  });
+  point('clap');
+
+  const scene = document.getElementById('scene');
+  const jouer = function () {
+    scene.classList.remove('joue');
+    void scene.offsetWidth;
+    scene.classList.add('joue');
+  };
+  scene.addEventListener('click', jouer);
+  (document.fonts ? document.fonts.load('800 100px "Inter Tight"', 'flavyen').catch(function () {}) : Promise.resolve()).then(function () {
+    M = mesurer();
+    // start with a tight rounded corner and a flat top, and a hook thin enough to leave a clear opening
+    courbe.value = 30; epais.value = 10; barre.value = 100;
+    dessiner();
+    lettresCoreennes();
+    coree('ieung');
+    jouer();
+    // once the letters have risen into place, the u is where it will stay: measure again
+    setTimeout(poserTuiles, 1400);
+  });
+})();
+</script>
+</body>
+</html>

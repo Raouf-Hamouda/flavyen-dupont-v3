@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flavyen Dupont · le nom et la tuile</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --papier: #f5f7f9;
+  --bleu: #8fa1b3;
+  --ardoise: #4d5a67;
+  --gris: #9aa6b2;
+  --rouge: #d6301d;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --myeongjo: "Nanum Myeongjo", "AppleMyungjo", serif;
+  --didone: "Bodoni Moda", Didot, "Bodoni MT", serif;
+  --garamond: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  background: var(--papier);
+  color: var(--ardoise);
+  -webkit-font-smoothing: antialiased;
+}
+.mono {
+  font: 400 10px/1.3 var(--mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 24px;
+}
+header span {
+  color: var(--gris);
+}
+.piste {
+  position: relative;
+  border-top: 1px solid var(--ardoise);
+  padding: 20px 24px 26px;
+  cursor: pointer;
+}
+.piste:last-of-type {
+  border-bottom: 1px solid var(--ardoise);
+}
+.piste .no {
+  display: flex;
+  justify-content: space-between;
+  color: var(--gris);
+}
+.piste .no b {
+  font-weight: 500;
+  color: var(--ardoise);
+}
+.scene {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 26px 0 8px;
+}
+
+/* the name: one letter per box so the tile can walk from letter to letter */
+.mot {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  font-size: clamp(44px, 8.4vw, 132px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.mot.petit {
+  font-size: 22px;
+}
+.mot .v {
+  display: inline-flex;
+}
+.mot .prenom {
+  color: var(--bleu);
+  margin-right: .22em;
+}
+.mot .l {
+  display: inline-block;
+  overflow: hidden;
+}
+.mot .l span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+.joue .mot .l span {
+  animation: monte .8s cubic-bezier(.2, .7, .2, 1) forwards;
+  animation-delay: calc(var(--n) * 40ms);
+}
+.mot.petit .l span {
+  transform: none;
+  animation: none;
+}
+@keyframes monte {
+  to {
+    transform: none;
+  }
+}
+/* the tile: one square of manuscript paper, resting on one letter */
+.tuile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid var(--rouge);
+  pointer-events: none;
+  opacity: 0;
+}
+.rouge .tuile {
+  border-color: var(--rouge);
+}
+
+/* 1. a Korean serif drawing the Latin letters */
+.f1 .mot {
+  font-family: var(--myeongjo);
+  font-weight: 700;
+  letter-spacing: -.035em;
+}
+/* 2. a French Didone: thick and thin, as on a fashion masthead */
+.f2 .mot {
+  font-family: var(--didone);
+  font-weight: 500;
+  letter-spacing: -.02em;
+}
+.f2 .mot .nom {
+  font-style: italic;
+}
+/* 3. Garamond, the oldest French voice: first name in italic */
+.f3 .mot {
+  font-family: var(--garamond);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  font-size: clamp(48px, 9.4vw, 148px);
+}
+.f3 .mot .prenom {
+  font-style: italic;
+}
+.f3 .mot.petit {
+  font-size: 25px;
+}
+/* 4. the two countries side by side: French italic first name, Korean serif family name */
+.f4 .mot .prenom {
+  font-family: var(--garamond);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.12em;
+  letter-spacing: -.02em;
+}
+.f4 .mot .nom {
+  font-family: var(--myeongjo);
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
+
+@media (max-width: 760px) {
+  .scene {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="mono"><b>Flavyen Dupont · le nom et la tuile</b><span>Cliquer sur une piste pour la rejouer</span></header>
+
+<section class="piste f1" data-cible="u">
+  <div class="no mono"><b>A · Myeongjo</b><span>Un sérif coréen qui dessine les lettres latines</span></div>
+  <div class="scene"><div class="mot"></div><div class="mot petit"></div></div>
+</section>
+<section class="piste f2" data-cible="u">
+  <div class="no mono"><b>B · Didone</b><span>Pleins et déliés à la française, nom en italique</span></div>
+  <div class="scene"><div class="mot"></div><div class="mot petit"></div></div>
+</section>
+<section class="piste f3" data-cible="u">
+  <div class="no mono"><b>C · Garamond</b><span>La plus ancienne voix française, prénom en italique</span></div>
+  <div class="scene"><div class="mot"></div><div class="mot petit"></div></div>
+</section>
+<section class="piste f4 rouge" data-cible="u">
+  <div class="no mono"><b>D · Les deux pays</b><span>Prénom en italique français, nom en sérif coréen</span></div>
+  <div class="scene"><div class="mot"></div><div class="mot petit"></div></div>
+</section>
+
+<script>
+(function () {
+  const PRENOM = 'Flavyen', NOM = 'Dupont';
+
+  function construire(mot) {
+    let n = 0;
+    const lettres = [];
+    for (const [cls, texte] of [['prenom', PRENOM], ['nom', NOM]]) {
+      const voix = document.createElement('span');
+      voix.className = 'v ' + cls;
+      for (const ch of texte) {
+        const l = document.createElement('span'), s = document.createElement('span');
+        l.className = 'l';
+        s.textContent = ch;
+        s.style.setProperty('--n', n++);
+        l.appendChild(s);
+        voix.appendChild(l);
+        lettres.push(l);
+      }
+      mot.appendChild(voix);
+    }
+    const tuile = document.createElement('div');
+    tuile.className = 'tuile';
+    mot.appendChild(tuile);
+    return { lettres, tuile };
+  }
+
+  // where the tile sits when it frames one letter: a square, centred on the letter
+  function place(mot, lettre, cote, haut) {
+    const m = mot.getBoundingClientRect(), r = lettre.getBoundingClientRect();
+    return `translate(${(r.left - m.left + r.width / 2 - cote / 2).toFixed(1)}px,${(r.top - m.top + r.height * haut - cote / 2).toFixed(1)}px)`;
+  }
+
+  function poser(mot, o, cible, anime) {
+    const cote = parseFloat(getComputedStyle(mot).fontSize) * .82;
+    o.tuile.style.width = o.tuile.style.height = cote + 'px';
+    // the letter the tile comes to rest on: the first one of the family name that matches
+    const fin = PRENOM.length + NOM.indexOf(cible);
+    // a capital sits higher in the line than a small letter: the tile is centred on the one it frames
+    const haut = cible === cible.toUpperCase() ? .49 : .6;
+    if (!anime) {
+      o.tuile.style.transform = place(mot, o.lettres[fin], cote, haut);
+      o.tuile.style.opacity = 1;
+      return;
+    }
+    // the tile walks along the name, one letter at a time, and stops on its letter
+    const pas = [];
+    for (let i = 0; i <= fin; i++) {
+      pas.push({ transform: place(mot, o.lettres[i], cote, haut), opacity: 1, offset: i / fin, easing: 'cubic-bezier(.5,0,.2,1)' });
+    }
+    pas[0].opacity = 0;
+    o.tuile.getAnimations().forEach(a => a.cancel());
+    o.tuile.animate(pas, { duration: 150 * fin, delay: 900, fill: 'both' });
+  }
+
+  const pistes = [...document.querySelectorAll('.piste')].map(function (p) {
+    const [grand, petit] = p.querySelectorAll('.mot');
+    return { p, grand, petit, og: construire(grand), op: construire(petit) };
+  });
+  function jouer(x) {
+    x.p.classList.remove('joue');
+    void x.p.offsetWidth;
+    x.p.classList.add('joue');
+    poser(x.grand, x.og, x.p.dataset.cible, true);
+    poser(x.petit, x.op, x.p.dataset.cible, false);
+  }
+  const lancer = function () {
+    pistes.forEach(function (x, i) {
+      x.p.addEventListener('click', () => jouer(x));
+      setTimeout(() => jouer(x), 200 + i * 300);
+    });
+    addEventListener('resize', () => pistes.forEach(x => { poser(x.grand, x.og, x.p.dataset.cible, false); poser(x.petit, x.op, x.p.dataset.cible, false); }));
+  };
+  // the letters must be measured in their real typefaces
+  (document.fonts ? Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 2500))]) : Promise.resolve()).then(lancer);
+})();
+</script>
+</body>
+</html>

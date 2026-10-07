@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flavyen Dupont · pistes de logo</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --encre: #4d5a67;
+  --papier: #f5f7f9;
+  --gris: #9aa6b2;
+  --rouge: #8fa1b3;
+  --clair: #cfd8e1;
+  --sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --didot: "Playfair Display", Didot, "Bodoni MT", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --e: cubic-bezier(.2, .7, .2, 1);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  background: var(--papier);
+  color: var(--encre);
+  font: 500 15px/1.2 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+.mono {
+  font: 400 10px/1.3 var(--mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 24px;
+}
+header span {
+  color: var(--gris);
+}
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--encre);
+}
+.piste {
+  position: relative;
+  min-height: 46vh;
+  padding: 22px 24px 64px;
+  border-bottom: 1px solid var(--encre);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.piste:nth-child(odd) {
+  border-right: 1px solid var(--encre);
+}
+.piste .no {
+  display: flex;
+  justify-content: space-between;
+  color: var(--gris);
+}
+.piste .no b {
+  font-weight: 500;
+  color: var(--encre);
+}
+.scene {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  padding: 30px 0 10px;
+}
+.petit {
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gris);
+}
+.petit svg,
+.petit .sceau {
+  flex: none;
+}
+
+/* the name set beside a mark: two voices, as on the site */
+.nom {
+  display: flex;
+  align-items: baseline;
+  gap: .22em;
+  font-size: clamp(24px, 3vw, 44px);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.nom b {
+  font: 700 1em/1.1 var(--sans);
+  letter-spacing: -.05em;
+}
+.nom i {
+  font: italic 400 1.12em/1.1 var(--serif);
+}
+.nom b,
+.nom i {
+  transform: translateY(115%);
+}
+.joue .nom b {
+  animation: monte .8s var(--e) 1.9s forwards;
+}
+.joue .nom i {
+  animation: monte .8s var(--e) 2.05s forwards;
+}
+@keyframes monte {
+  to {
+    transform: none;
+  }
+}
+
+/* ---------- 1. ㅍㄷ: his initials the Korean way, written stroke by stroke, then inked */
+.jamo {
+  width: clamp(150px, 17vw, 240px);
+  overflow: visible;
+}
+.jamo .bord,
+.jamo .trait {
+  fill: none;
+  stroke: var(--encre);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.jamo .bord {
+  stroke-width: 1.5;
+}
+.jamo .trait {
+  stroke-width: 5;
+}
+.jamo .plein {
+  fill: var(--clair);
+  transform: scaleX(0);
+  transform-box: fill-box;
+  transform-origin: left;
+}
+.joue .jamo .bord {
+  animation: trace .7s var(--e) forwards;
+}
+.joue .jamo .trait {
+  animation: trace .28s cubic-bezier(.5, 0, .2, 1) forwards;
+  animation-delay: calc(.55s + var(--n) * .14s);
+}
+.joue .jamo .plein {
+  animation: emplit .5s var(--e) 1.65s forwards;
+}
+.joue .jamo .g1 .trait {
+  animation: trace .28s cubic-bezier(.5, 0, .2, 1) forwards, blanc .3s 1.75s forwards;
+  animation-delay: calc(.55s + var(--n) * .14s), 1.75s;
+}
+@keyframes trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes emplit {
+  to {
+    transform: none;
+  }
+}
+@keyframes blanc {
+  to {
+    stroke: var(--encre);
+  }
+}
+
+/* ---------- 2. the seal: stamped once, slightly off, the way a hand does it */
+.sceau {
+  width: clamp(120px, 13vw, 180px);
+  aspect-ratio: 1;
+  background: var(--rouge);
+  color: var(--papier);
+  display: grid;
+  place-items: center;
+  font: 400 clamp(64px, 7.4vw, 104px)/1 var(--serif);
+  letter-spacing: -.05em;
+  opacity: 0;
+}
+.sceau span {
+  transform: translateY(-.04em);
+}
+.joue .sceau {
+  animation: tampon .55s cubic-bezier(.3, 0, .2, 1) .3s forwards;
+}
+@keyframes tampon {
+  0% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(.96);
+  }
+  75% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.p2 .nom b {
+  animation-delay: 1s;
+}
+.p2 .nom i {
+  animation-delay: 1.15s;
+}
+
+/* ---------- 3. one block: F and D assembled inside a square, the way a Hangul syllable is built */
+.bloc {
+  width: clamp(130px, 14vw, 200px);
+  overflow: visible;
+}
+.bloc .p {
+  fill: var(--encre);
+  opacity: 0;
+}
+.bloc .cadre {
+  fill: none;
+  stroke: var(--encre);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.joue .bloc .p {
+  animation: assemble .7s var(--e) forwards;
+  animation-delay: calc(.2s + var(--n) * .13s);
+}
+.joue .bloc .cadre {
+  animation: trace .9s var(--e) 1.1s forwards;
+}
+@keyframes assemble {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.p3 .nom b {
+  animation-delay: 1.5s;
+}
+.p3 .nom i {
+  animation-delay: 1.65s;
+}
+
+/* ---------- 4. the name alone, in two voices, closed by one red square */
+.mot {
+  display: flex;
+  align-items: baseline;
+  gap: .16em;
+  font-size: clamp(40px, 5.6vw, 86px);
+  white-space: nowrap;
+}
+.mot .l {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.mot .l span {
+  display: inline-block;
+  transform: translateY(110%);
+}
+.mot b {
+  font: 700 1em/1.15 var(--sans);
+  letter-spacing: -.055em;
+}
+.mot i {
+  font: italic 400 1.14em/1.15 var(--serif);
+  letter-spacing: -.01em;
+}
+.mot .point {
+  width: .2em;
+  height: .2em;
+  background: var(--rouge);
+  align-self: flex-end;
+  margin: 0 0 .2em -.1em;
+  opacity: 0;
+}
+.joue .mot .l span {
+  animation: monte .75s var(--e) forwards;
+  animation-delay: calc(.2s + var(--n) * .045s);
+}
+.joue .mot .point {
+  animation: tombe .7s cubic-bezier(.3, 1.6, .5, 1) 1.25s forwards;
+}
+@keyframes tombe {
+  from {
+    opacity: 1;
+    transform: translateY(-1.6em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 760px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+  .piste:nth-child(odd) {
+    border-right: 0;
+  }
+  .scene {
+    flex-direction: column;
+    gap: 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- rough edge for the seal, like ink pressed on paper -->
+<svg width="0" height="0" style="position:absolute">
+  <filter id="encre" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="b"/>
+    <feDisplacementMap in="SourceGraphic" in2="b" scale="3.2"/>
+  </filter>
+</svg>
+
+<header class="mono"><b>Flavyen Dupont · quatre pistes de logo, version gris-bleu</b><span>Cliquer sur une piste pour la rejouer</span></header>
+
+<main>
+  <section class="piste p1">
+    <div class="no mono"><b>01 · ㅍㄷ</b><span>Ses initiales à la coréenne</span></div>
+    <div class="scene">
+      <svg class="jamo" viewBox="0 0 210 110">
+        <rect class="plein" x="5" y="5" width="100" height="100"/>
+        <rect class="bord" x="5" y="5" width="100" height="100" pathLength="1"/>
+        <rect class="bord" x="105" y="5" width="100" height="100" pathLength="1"/>
+        <g class="g1">
+          <line class="trait" style="--n:0" x1="27" y1="32" x2="83" y2="32" pathLength="1"/>
+          <line class="trait" style="--n:1" x1="43" y1="32" x2="43" y2="78" pathLength="1"/>
+          <line class="trait" style="--n:2" x1="67" y1="32" x2="67" y2="78" pathLength="1"/>
+          <line class="trait" style="--n:3" x1="24" y1="78" x2="86" y2="78" pathLength="1"/>
+        </g>
+        <g>
+          <line class="trait" style="--n:4" x1="128" y1="32" x2="182" y2="32" pathLength="1"/>
+          <line class="trait" style="--n:5" x1="133" y1="32" x2="133" y2="78" pathLength="1"/>
+          <line class="trait" style="--n:6" x1="128" y1="78" x2="184" y2="78" pathLength="1"/>
+        </g>
+      </svg>
+      <div class="nom"><b>Flavyen</b><i>Dupont</i></div>
+    </div>
+    <div class="petit mono">
+      <svg width="42" height="22" viewBox="0 0 210 110"><rect x="5" y="5" width="100" height="100" fill="#8fa1b3"/><rect x="5" y="5" width="100" height="100" fill="none" stroke="#4d5a67" stroke-width="5"/><rect x="105" y="5" width="100" height="100" fill="none" stroke="#4d5a67" stroke-width="5"/><g stroke="#fff" stroke-width="8"><line x1="27" y1="32" x2="83" y2="32"/><line x1="43" y1="32" x2="43" y2="78"/><line x1="67" y1="32" x2="67" y2="78"/><line x1="24" y1="78" x2="86" y2="78"/></g><g stroke="#4d5a67" stroke-width="11"><line x1="128" y1="32" x2="182" y2="32"/><line x1="133" y1="32" x2="133" y2="78"/><line x1="128" y1="78" x2="184" y2="78"/></g></svg>
+      En petit
+    </div>
+  </section>
+
+  <section class="piste p2">
+    <div class="no mono"><b>02 · 도장</b><span>Le sceau</span></div>
+    <div class="scene">
+      <div class="sceau"><span>FD</span></div>
+      <div class="nom"><b>Flavyen</b><i>Dupont</i></div>
+    </div>
+    <div class="petit mono">
+      <div class="sceau" style="width:24px;font-size:14px;opacity:1;"><span>FD</span></div>
+      En petit
+    </div>
+  </section>
+
+  <section class="piste p3">
+    <div class="no mono"><b>03 · Un bloc</b><span>F et D assemblés comme une syllabe</span></div>
+    <div class="scene">
+      <svg class="bloc" viewBox="0 0 110 110">
+        <rect class="cadre" x="5" y="5" width="100" height="100" pathLength="1"/>
+        <rect class="p" style="--n:0;--dx:-40px;--dy:0px" x="18" y="16" width="13" height="78"/>
+        <rect class="p" style="--n:1;--dx:0px;--dy:-34px" x="31" y="16" width="24" height="4"/>
+        <rect class="p" style="--n:2;--dx:-26px;--dy:0px" x="31" y="49" width="18" height="4"/>
+        <rect class="p" style="--n:3;--dx:0px;--dy:40px" x="60" y="16" width="13" height="78"/>
+        <path class="p" style="--n:4;--dx:36px;--dy:0px" d="M73 16H80C104 16 104 94 80 94H73V90H79C91 90 91 20 79 20H73Z"/>
+      </svg>
+      <div class="nom"><b>Flavyen</b><i>Dupont</i></div>
+    </div>
+    <div class="petit mono">
+      <svg width="22" height="22" viewBox="0 0 110 110" fill="#4d5a67"><rect x="5" y="5" width="100" height="100" fill="none" stroke="#4d5a67" stroke-width="5"/><rect x="18" y="16" width="13" height="78"/><rect x="31" y="16" width="24" height="5"/><rect x="31" y="49" width="18" height="5"/><rect x="60" y="16" width="13" height="78"/><path d="M73 16H80C104 16 104 94 80 94H73V90H79C91 90 91 20 79 20H73Z"/></svg>
+      En petit
+    </div>
+  </section>
+
+  <section class="piste p4">
+    <div class="no mono"><b>04 · Le nom seul</b><span>Deux voix et un carré rouge</span></div>
+    <div class="scene">
+      <div class="mot" id="mot"></div>
+    </div>
+    <div class="petit mono">
+      <span style="font:700 15px var(--sans);letter-spacing:-.05em;color:#4d5a67;text-transform:none">Flavyen <i style="font:italic 400 17px var(--serif);letter-spacing:0">Dupont</i><span style="display:inline-block;width:4px;height:4px;background:#8fa1b3;margin-left:1px"></span></span>
+      En petit
+    </div>
+  </section>
+</main>
+
+<script>
+// the wordmark is built letter by letter so each one can rise on its own
+(function () {
+  const mot = document.getElementById('mot');
+  let n = 0;
+  for (const [tag, texte] of [['b', 'Flavyen'], ['i', 'Dupont']]) {
+    const voix = document.createElement(tag);
+    for (const ch of texte) {
+      const l = document.createElement('span'), s = document.createElement('span');
+      l.className = 'l';
+      s.textContent = ch;
+      s.style.setProperty('--n', n++);
+      l.appendChild(s);
+      voix.appendChild(l);
+    }
+    mot.appendChild(voix);
+  }
+  const point = document.createElement('span');
+  point.className = 'point';
+  mot.appendChild(point);
+
+  const jouer = function (p) {
+    p.classList.remove('joue');
+    void p.offsetWidth;
+    p.classList.add('joue');
+  };
+  document.querySelectorAll('.piste').forEach(function (p, i) {
+    p.addEventListener('click', () => jouer(p));
+    setTimeout(() => jouer(p), 300 + i * 350);
+  });
+})();
+</script>
+</body>
+</html>
